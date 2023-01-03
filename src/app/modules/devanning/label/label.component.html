@@ -1,0 +1,36 @@
+<div class="h-100">
+    <mat-form-field class=" w-100" >
+        <mat-label>FSC Number</mat-label>
+        <input matInput disabled placeholder="Enter FSC Number" [(ngModel)]="selectedContainer.fse_number"  name="fscNumber"  >
+    </mat-form-field>
+                <mat-form-field class=" w-100" >
+                  <mat-label>HBL</mat-label>
+                  <input matInput disabled placeholder="Enter hbl"  [(ngModel)]="selectedHbl.hblNumber"  name="hbl"  >
+              </mat-form-field>
+              <mat-form-field class=" w-100" >
+                <mat-label>ETA</mat-label>
+                <input matInput disabled placeholder="Enter eta"  [(ngModel)]="eta"  name="eta"  >
+              </mat-form-field>
+    <mat-form-field class=" w-100" >
+        <mat-label>POD</mat-label>
+        <input matInput disabled placeholder="Enter pod" [(ngModel)]="selectedContainer.pod_text"  name="pod"  >
+    </mat-form-field>
+                <mat-form-field class=" w-100" >
+                  <mat-label>No Of Labels</mat-label>
+                  <input matInput placeholder="Enter No Of Labels" type="number" [(ngModel)]="unload"  name="numberOfLabels"  >
+              </mat-form-field>
+              <mat-form-field class=" w-100" >
+                <mat-label>No Of Packages</mat-label>
+                <input matInput placeholder="Enter No Of Packages"  [(ngModel)]="numberOfPakages"  name="numberOfPakages"  >
+              </mat-form-field>
+
+    
+</div>
+<div class="d-flex pb-1">
+  <button mat-raised-button  mat-dialog-close class="ml-auto">Close</button>
+  <button mat-raised-button color="primary" class="ml-3" (click)="preview()">Preview</button>
+    <!-- <button mat-raised-button color="primary" class="ml-3" (click)="print()">Print</button>   -->
+    <button mat-raised-button color="primary" [disabled]="  !selectedContainer.fse_number || !selectedHbl.hblNumber || !eta || !selectedContainer.pod_text || !(unload > 0 )" class="ml-3" (click)="print()">Print</button>  
+
+</div>
+

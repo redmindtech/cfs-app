@@ -1,0 +1,18 @@
+
+@import 'src/variables';
+
+.list-container .mat-row:hover .mat-cell {
+    background: $hover-color;
+    color: $text-color;
+    cursor: pointer;
+}
+
+.list-container .table-selected-row .mat-cell{
+    background: $selected-color !important;
+    color: $text-selected-color !important;
+}
+
+.table-selected-card {
+    background: $selected-color !important;
+    color: $text-selected-color !important;
+}

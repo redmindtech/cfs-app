@@ -1,0 +1,74 @@
+ <div class="d-flex flex-column w-100 h-100">
+    <app-header ></app-header>
+     <div class="d-none d-md-flex flex-grow-1 overflow-auto h-100">
+        <div class="w-50 d-flex overflow-auto flex-column">
+            <div  class="d-flex py-2">
+                <div class="px-3 d-flex py-2 align-items-center"> 
+                    <div class="font-italic pt-2 cfs-title1 text-danger bold">Cargo Delivery</div>
+                </div>
+                <div class="ml-auto " >
+                    <mat-form-field class="flex-grow-1"  >
+                        <mat-label>Search</mat-label>
+                        <input type="text"
+                            [(ngModel)]="search"
+                            aria-label="Number"
+                            matInput 
+                            #searchInput
+                            [formControl]="myControl" 
+                            placeholder="HBL/Booking/Bill Of Entry">
+                          
+                    </mat-form-field>
+                    <button mat-icon-button    (click)="searchBooking()">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                    
+                    <button mat-icon-button   (click)="openBookingNumberScannerPopup(bookingSearchFC, 'BookingNumber-desktop')">
+                        <mat-icon>qr_code_scanner</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <app-list-delivery *ngIf="bookingList" [bookingList]="bookingList" (selectedRow)="bookingNumberSelected($event)"></app-list-delivery>
+        </div>
+        <mat-divider [vertical]="true"></mat-divider>
+        <div class="  d-flex  overflow-auto w-50 flex-column ">
+           
+            <app-delivery-details class="flex-grow-1 overflow-auto" [bookingList]="bookingList"></app-delivery-details>
+        </div>
+    </div>
+
+
+
+    <div class="d-flex flex-column d-md-none h-100 w-100 overflow-auto">
+               
+                <div class="bg-white border-top p-2 d-flex ">
+                    <div class="ml-auto">
+                    <mat-form-field class="flex-grow-1 pr-2"  >
+                        <mat-label>Search</mat-label>
+                        <input type="text"
+                        [(ngModel)]="search"
+                        aria-label="Number"
+                        matInput 
+                        #searchInput
+                        [formControl]="myControl" 
+                        placeholder="HBL/Booking/Bill Of Entry">
+                                      
+                     </mat-form-field>
+                     <button *ngIf="!showMobileBookingSearch" mat-raised-button color="primary" (click)="searchBooking()"><mat-icon>search</mat-icon> Search &nbsp;&nbsp;</button>
+
+                    <button *ngIf="!showMobileBookingSearch" mat-raised-button color="primary" (click)="openBookingNumberScannerPopup(bookingSearchFC, 'BookingNumber-mobile')" class="ml-2" ><mat-icon>qr_code_scanner</mat-icon> Scan &nbsp;&nbsp;</button>
+                    </div>
+                    
+                </div>
+                <div class="d-flex flex-column flex-grow-1 overflow-auto">
+                    <div class="flex-grow-1 overflow-auto">
+                        <app-list-delivery *ngIf="bookingList"  [bookingList]="bookingList" ></app-list-delivery>
+                    </div>
+                    <div class="">
+                        <app-delivery-details class="flex-grow-1" [bookingList]="bookingList"></app-delivery-details>
+                    </div>
+
+                </div> 
+    </div>
+
+</div>
+ 

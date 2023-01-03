@@ -1,0 +1,41 @@
+<!-- <div class="d-flex">
+  <form class="d-flex flex-column w-100">
+
+    <mat-form-field >
+      <mat-label>Enter CFS Name</mat-label>
+      <input matInput placeholder="CFS Name">
+    </mat-form-field>
+
+    <mat-form-field >
+      <mat-label>Enter Actual Seal</mat-label>
+      <input matInput placeholder="Actual Seal">
+    </mat-form-field>
+  
+    <mat-form-field  >
+      <mat-label>Enter CFS Note </mat-label>
+      <input matInput placeholder="CFS Note">
+    </mat-form-field>
+
+    <mat-form-field  >
+      <mat-label>Enter Damage Note</mat-label>
+      <input matInput placeholder="Damage Note">
+    </mat-form-field>
+  
+    <mat-form-field  >
+      <mat-label>Enter Note</mat-label>
+      <input matInput placeholder=" Note">
+    </mat-form-field>
+</form>
+</div> -->
+<app-loader *ngIf="isLoading"></app-loader>
+<div >
+  <mat-form-field class="px-1 w-100" >
+      <mat-label>Unloading Date </mat-label> 
+  <input matInput placeholder="Enter Unloading Date" [(ngModel)]="selectedContainer.unloading_date" type="datetime-local" [value]="selectedContainer.unloading_date"> 
+</mat-form-field>
+</div>
+  <div class="pb-3 text-danger bold">Do you want to proceed?</div>
+  <div class="d-flex pb-1">
+      <button mat-raised-button  mat-dialog-close class="ml-auto">No</button>
+      <button mat-raised-button color="primary" class="ml-3" (click)="ok()" [disabled]="isUploadClicked">Yes</button>  
+  </div>

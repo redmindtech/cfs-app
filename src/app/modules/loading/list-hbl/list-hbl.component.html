@@ -1,0 +1,79 @@
+
+<div class="h-100 w-100 d-flex flex-column overflow-auto">
+    <div *ngIf="isLoading" class="flex-grow-1 d-flex align-items-center justify-content-center">
+      <mat-progress-bar class="mx-4" mode="indeterminate"></mat-progress-bar>
+    </div>
+    <div class="flex-grow-1 overflow-auto d-none d-md-block" *ngIf="!isLoading">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100 list-container">
+            <!-- Position Column -->
+            <ng-container matColumnDef="hblNumber">
+              <th mat-header-cell *matHeaderCellDef>HBL</th>
+              <td mat-cell *matCellDef="let element">{{element.hblNumber}}</td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="mark">
+              <th mat-header-cell *matHeaderCellDef>MARK</th>
+              <td mat-cell *matCellDef="let element">{{element.mark}}</td>
+            </ng-container>
+          
+            <!-- Weight Column -->
+            <ng-container matColumnDef="manifestedPieces">
+              <th mat-header-cell *matHeaderCellDef class="text-right">MANIFESTED</th>
+              <td mat-cell *matCellDef="let element" class="text-right">{{element.manifestedPieces}}</td>
+            </ng-container>
+          
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="unloaded">
+              <th mat-header-cell *matHeaderCellDef class="text-right">Loaded</th>
+              <td mat-cell *matCellDef="let element" class="text-right">{{element.unloaded}}</td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="balance">
+                <th mat-header-cell *matHeaderCellDef class="text-right">BALANCE</th>
+                <td mat-cell *matCellDef="let element" class="text-right">{{element.balance}}</td>
+              </ng-container>
+
+            <!-- <ng-container matColumnDef="UNLOADING PACKAGE">
+                <th mat-header-cell *matHeaderCellDef class="text-right">UNLOADING PACKAGE</th>
+                <td mat-cell *matCellDef="let element" class="text-right">{{element.UNLOADING_PACKAGE}}</td>
+            </ng-container> -->
+
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns" class="sticky-top"></tr>
+            <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumns;"
+                [ngClass]="{ 'table-selected-row': row.isSelected}"
+                (click)="clickedRow(row)"
+            ></tr>
+          </table>
+    </div>
+    <div class="flex-grow-1 overflow-auto d-block d-md-none" *ngIf="!isLoading">
+      <mat-card *ngFor="let element of dataSource.filteredData" class="m-3" [ngClass]="{'table-selected-card': element.isSelected}" (click)="clickedRow(element)">
+        <div class="cfs-title1 pb-2">{{element.hblNumber}}</div>
+        <div class="pb-4">{{element.mark}}</div>
+        <div class="d-flex justify-content-between">
+          <div class="d-flex flex-column justify-content-center text-center">
+            <div class="cfs-title1">{{element.manifestedPieces}}</div>
+            <div>Manifest Pieces</div>
+          </div>
+          <div class="d-flex flex-column justify-content-center text-center">
+            <div class="cfs-title1">{{element.unloaded}}</div>
+            <div>Unloaded</div>
+          </div>
+          <div class="d-flex flex-column justify-content-center text-center">
+            <div class="cfs-title1">{{element.balance}}</div>
+            <div>Balance</div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+    <!-- <div class="d-flex py-2 border-top">
+        <button mat-raised-button color="primary" class="mx-auto">
+            <mat-icon>qr_code_scanner</mat-icon>
+            Scan Bar Code &nbsp; 
+        </button>
+    </div> -->
+</div>

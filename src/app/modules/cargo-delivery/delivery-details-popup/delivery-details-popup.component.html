@@ -1,0 +1,49 @@
+<div class="d-flex">
+    <div class="d-flex flex-column w-100">
+
+      <div class="w-100">
+        <mat-form-field class="w-50 pr-2" >
+          <mat-label>Enter Packages</mat-label>
+          <input matInput placeholder="Enter Packages" [(ngModel)]="details.packages" >
+        </mat-form-field>
+
+        <mat-form-field class="w-50">
+          <mat-label *ngIf="details.pack_type"> {{details.pack_type}} </mat-label> 
+           <mat-lable *ngIf="!details.pack_type">Type</mat-lable> 
+          <mat-select [(ngModel)]="packageType" name="type">
+            <mat-option *ngFor="let type of types" [value]="type.value" >
+              {{type.viewValue}}  
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+
+      </div>
+      <mat-form-field  >
+        <mat-label>Enter Weight</mat-label>
+        <input matInput placeholder="Weight" [(ngModel)]="details.weight" >
+      </mat-form-field>
+  
+      <mat-form-field  >
+        <mat-label>Enter volumn</mat-label>
+        <input matInput placeholder="volumn" [(ngModel)]="details.volume">
+      </mat-form-field>
+
+      <mat-form-field  >
+        <mat-label>Enter Driver Name</mat-label>
+        <input matInput placeholder="Driver Name" [(ngModel)]="driverName">
+      </mat-form-field>
+    
+      <mat-form-field  >
+        <mat-label>Enter Truck No</mat-label>
+        <input matInput placeholder="Truck No" [(ngModel)]="truckName" >
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="d-flex pb-1 pt-2">
+    <button mat-raised-button color="primary" class="ml-auto" (click)="uploadPhoto()" >
+        Upload Photos
+      </button>
+    <button mat-raised-button color="primary" class="ml-3" (click)="save()">Save</button>
+    <button mat-raised-button mat-dialog-close class="ml-3" >Close</button>  
+</div>

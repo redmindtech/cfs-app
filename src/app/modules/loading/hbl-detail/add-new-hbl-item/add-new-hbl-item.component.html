@@ -1,0 +1,97 @@
+<app-loader *ngIf="isLoading"></app-loader>
+<div class="d-flex flex-column overflow-auto h-100">
+  <div class="cfs-title1">Load Item</div>
+  <div class="flex-grow-1 container overflow-auto ">
+    <form class="col-12 col-md-8 col-lg-6 d-flex flex-column mx-auto mt-3">
+      <div class="d-flex justify-content-between w-100">
+         
+        <mat-form-field class="px-1">
+              <mat-label *ngIf="selectedHbl.pack_description"> {{packageType}} </mat-label>
+              <mat-lable *ngIf="!selectedHbl.pack_description">Type</mat-lable>
+              <mat-select [(ngModel)]="packageType" name="type">
+                <mat-option *ngFor="let type of types" [value]="type.value" >
+                  {{type.viewValue}}  
+                </mat-option>
+              </mat-select>
+          </mat-form-field>
+          <mat-form-field class="px-1 w-50" >
+            <mat-label>Load Qty</mat-label>
+            <input matInput placeholder="Enter Load Qty" type="number" [(ngModel)]="receivedPiece" (keyup)="calculateCBM()" name="receivedPiece" >
+        </mat-form-field>
+      </div>
+
+        <!-- <div class="py-2">Condition </div> 
+        <mat-radio-group [formControl]="damage">
+          <mat-radio-button [value]="'Good'" class="mr-3">Good</mat-radio-button>
+          <mat-radio-button [value]="'Damage'">Damage</mat-radio-button>
+        </mat-radio-group>
+        <mat-form-field *ngIf="damage.value == 'Damage' ">
+          <mat-label>Select Damage Type</mat-label>
+          <mat-select [(ngModel)]="damageType" name="damageType">
+            <mat-option *ngFor="let type of damageTypes" [value]="type.value">
+              {{type.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngIf="damage.value == 'Damage' && damageType == 'others' "> -->
+        <!-- <mat-form-field *ngIf="damage.value == 'Damage' ">
+          <mat-label>Damage notes</mat-label>
+          <input matInput type="text" [(ngModel)]="damageNotes" name="damageNotes" >
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Landed Marks</mat-label>
+          <input matInput type="text" [(ngModel)]="landedMarks" name="landedMarks" >
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>CFS Note</mat-label>
+          <input matInput type="text" [(ngModel)]="cfsNote" name="cfsNote" >
+        </mat-form-field>
+
+        <div class="d-flex justify-content-between">
+          <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Dimention
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+                <mat-form-field class="px-1 hbl-dimension-field" >
+                 <mat-label>Length</mat-label>
+                 <input matInput placeholder="" type="number" [(ngModel)]="length" name="length" (keyup)="calculateCBM()" >
+                </mat-form-field>
+                <mat-form-field class="px-1 hbl-dimension-field" >
+                  <mat-label>Width</mat-label>
+                  <input matInput placeholder="" type="number" [(ngModel)]="width" name="width" (keyup)="calculateCBM()" >
+                </mat-form-field>
+                <mat-form-field class="px-1 hbl-dimension-field" >
+                  <mat-label>Height</mat-label>
+                  <input matInput placeholder="" type="number" [(ngModel)]="height" name="height" (keyup)="calculateCBM()" >
+                </mat-form-field>
+                <mat-form-field class="w-100" >
+                  <mat-label>Volume (m3)</mat-label>
+                  <input matInput disabled  type="number" [(ngModel)]="cbm" name="cbm" >
+                </mat-form-field>
+                <mat-form-field class="w-100" >
+                  <mat-label>Weight (kg)</mat-label>
+                  <input matInput type="number"  (keyup)="weightFun($event.target.value)" [(ngModel)]="weight" name="weight" >
+                </mat-form-field>
+              </mat-expansion-panel>
+          </mat-accordion>
+        </div> -->
+        <!-- <div class="d-flex pb-1 align-items-center justify-content-center"> -->
+          <!-- <button mat-raised-button color="primary" class="my-3" (click)="uploadPhoto()" >
+            Upload Photos
+          </button> -->
+      <!-- </div> -->
+    </form>
+  </div>
+  <div class="d-flex pb-1">
+    <button mat-raised-button class="ml-auto" mat-dialog-close >
+      Close
+    </button>
+    <button mat-raised-button color="primary" class="ml-3" (click)="save()" [disabled]="!receivedPiece">
+        Save
+    </button>
+  </div>
+</div>

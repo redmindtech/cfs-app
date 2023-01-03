@@ -1,0 +1,17 @@
+<!-- <mat-card class="m-3 flex-grow-1 d-none d-md-flex flex-column" *ngIf="selectedContainer"> -->
+    <div class="cfs-title1 pb-2 text-primary">{{selectedContainer.container_code}}-{{selectedContainer.container_number}}</div>
+    <div class="pb-3 text-primary">{{selectedContainer.eta | date}}</div>
+    <div class="pb-2 color1 text-white pl-2 pt-2">Handling Agent: {{selectedContainer.handling_agent_name}} </div>
+    <div class="pb-2 color pl-2 pt-2">Port of Loading: {{selectedContainer.pol}}</div>
+    <div class="pb-2 color1 text-white pl-2 pt-2">Total Manifest Weight: {{selectedContainer.weight}}</div>
+    <div class="pb-3 color pl-2 pt-2">Total Volume: {{selectedContainer.volume}}</div>
+    <div class="d-flex justify-content-center pt-3">
+       <!-- <button mat-raised-button color="primary" (click)="uploadPhoto()">Upload Photo</button>   -->
+       <button mat-raised-button class="ml-auto" mat-dialog-close >Close</button>
+      </div>
+    <!-- <div class="d-flex justify-content-between mt-auto">
+      <div>{{selectedContainer.vessel}}</div>
+      <div>{{selectedContainer.voy}}</div>
+      <div>{{selectedContainer.carrier}}</div>
+    </div> -->
+  <!-- </mat-card> -->

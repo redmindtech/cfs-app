@@ -1,0 +1,111 @@
+<app-loader *ngIf="isLoading"></app-loader>
+<div class="h-100 w-100 d-flex flex-column overflow-auto">
+  <div class="bg-white border-top py-2 d-flex justify-content-center">
+    <button mat-raised-button color="primary" (click)="addItem()" [disabled]="!selectedHbl" >
+      Unload Item
+  </button>
+  <button mat-raised-button color="primary" class="ml-3" (click)="uploadPhoto()" [disabled]="!selectedHbl">
+    Upload Photos
+  </button>
+  <button mat-raised-button color="primary" class="ml-3" (click)="complete()" [disabled]="!selectedHbl" >
+    Complete
+  </button>
+  </div>
+  <div class=" flex-grow-1 d-flex flex-column overflow-auto">
+  <div class="d-flex">
+    <!-- <mat-card class="m-3 flex-grow-1 d-none d-md-flex flex-column" *ngIf="selectedContainer">
+      <div class="cfs-title1 pb-2">{{selectedContainer.container}}</div>
+      <div class="pb-2">{{selectedContainer.eta}}</div>
+      <div class="d-flex justify-content-between mt-auto">
+        <div>{{selectedContainer.vessel}}</div>
+        <div>{{selectedContainer.voy}}</div>
+        <div>{{selectedContainer.carrier}}</div>
+      </div>
+    </mat-card> -->
+    <mat-card class="m-3 flex-grow-1"  *ngIf="selectedHbl">
+      <div class="d-flex">
+        <div class="cfs-title1 pb-3 flex-grow-1">{{selectedHbl.hblNumber}}</div>
+        <div>
+          <button class="" mat-raised-button color="primary" (click)="label()" [disabled]="!selectedHbl">Label</button>
+        </div>
+      </div>
+      
+
+      <div class="pb-4">{{selectedHbl.mark}}</div>
+      <div class="d-flex justify-content-between">
+        <div class="d-flex flex-column justify-content-center text-center">
+          <div class="cfs-title1">{{selectedHbl.manifestedPieces}}</div>
+          <div>Manifest Pieces</div>
+        </div>
+        <div class="d-flex flex-column justify-content-center text-center">
+          <div class="cfs-title1">{{selectedHbl.unloaded}}</div>
+          <div>Unloaded</div>
+        </div>
+        <div class="d-flex flex-column justify-content-center text-center">
+          <div class="cfs-title1">{{selectedHbl.balance}}</div>
+          <div>Balance</div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <div *ngIf="isLoading" class="flex-grow-1 d-flex align-items-center justify-content-center ">
+    <mat-progress-bar class="mx-4" mode="indeterminate"></mat-progress-bar>
+  </div>
+  
+  <table  mat-table [dataSource]="dataSource" class=" mat-elevation-z8 w-100 list-container" *ngIf="!isLoading && selectedHbl">
+    <!-- Position Column -->
+    <ng-container matColumnDef="unloadTime">
+      <th mat-header-cell *matHeaderCellDef>Unload Date</th>
+      <td mat-cell *matCellDef="let element; let i = index" >{{element.unloadTime | date}}</td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="receivedPiece">
+      <th mat-header-cell *matHeaderCellDef>Rcd Qty</th>
+      <td mat-cell *matCellDef="let element; let i = index" class="px-2">{{element.rcvd_qty}}</td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="weight">
+      <th mat-header-cell *matHeaderCellDef>Wt</th>
+      <td mat-cell *matCellDef="let element; let i = index">{{element.weight}}</td>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="cbm">
+      <th mat-header-cell *matHeaderCellDef>Volume</th>
+      <td mat-cell *matCellDef="let element; let i = index">{{element.cbm}}</td>
+    </ng-container>
+
+     <!-- Weight Column -->
+     <ng-container matColumnDef="damageNotes">
+      <th mat-header-cell *matHeaderCellDef>Condition</th>
+      <td mat-cell *matCellDef="let element; let i = index">{{element.good_damage}}</td>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="text-right">Action</th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        <div  class="d-flex justify-content-end">
+          <!-- <button mat-icon-button color="primary" (click)="editItem(element)">
+            <mat-icon>edit</mat-icon>
+          </button> -->
+          <button mat-icon-button color="primary" (click)="unloadItem(element)">
+            <mat-icon>details</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" (click)="DeleteItem(element, dataSource, i,selectedHbl.hblNumber)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" class="sticky-top"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+  </table>
+  </div>
+  
+</div>

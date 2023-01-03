@@ -1,0 +1,37 @@
+<app-loader *ngIf="isLoading"></app-loader>
+<div class="d-flex flex-column overflow-auto h-100">
+    <div class="cfs-title1">Capture Image</div>
+    <div class="flex-grow-1 d-flex flex-column container overflow-auto">
+        <div *ngIf="!selectedFileObjectUrl && !isCameraPage" class="flex-grow-1 d-flex flex-column align-items-center justify-content-center">
+            <div class="upload-icon-size mb-3"><mat-icon [inline]="true" >arrow_upward</mat-icon></div>
+            <div class=""><h1>Upload Photos</h1></div>
+            <div class="d-none">
+                <input #selectFile type="file" id="myfile" name="myfile" accept="image/gif, image/jpeg" (change)="selectedPhoto(selectFile)" >
+            </div>
+            <div class="d-flex">
+                <button mat-raised-button color="primary" class="" (click)="selectFile.click()" >Select Photo</button>
+                <button mat-raised-button color="primary" class="ml-2" (click)="openCamera(cameraView)" >Capture Photo</button>
+            </div>
+        </div>
+
+        <div [ngClass]="{'d-none': !isCameraPage, 'd-flex flex-grow-1 flex-column container overflow-auto': isCameraPage }" >
+            <video #cameraView [hidden]="isImageTaken" class="showVideo flex-grow-1 pb-3 overflow-auto" autoplay playsinline> </video>
+            <canvas #capturedPicture  class="showVideo" [hidden]="true"></canvas>
+            <img #capturedImg [hidden]="!isImageTaken" class="showVideo"  > 
+            <button mat-raised-button color="primary" class="m-auto " (click)="captureImage(capturedPicture, cameraView, capturedImg)" >Take Photo</button>
+        </div>
+        
+        <div *ngIf="selectedFileObjectUrl" class="showImage p-3 flex-grow-1 overflow-auto m-auto">
+            <img [src]="selectedFileObjectUrl" >
+        </div>
+        <div class="d-flex pb-1">
+            <button mat-raised-button class="ml-auto" mat-dialog-close >
+                Close
+            </button>
+            <button [disabled]="!selectedFileObjectUrl && isUploadClicked" mat-raised-button color="primary" class="ml-3" (click)="uploadPhoto()" >
+                Upload
+            </button>
+        </div>
+    </div>
+</div>
+        

@@ -1,0 +1,118 @@
+
+<div class="d-flex flex-column w-100 h-100">
+    <app-header ></app-header>
+    <div class="d-none d-md-flex flex-grow-1 overflow-auto h-100">
+        <div class="d-flex flex-column" [ngClass]="{ 'w-50': isHblDetailsExpanded, 'w-100': !isHblDetailsExpanded }">
+            <div class="d-flex flex-column" [ngClass]="{'h-50': isContainerExpanded, 'flex-grow-1': isContainerExpanded && !isHblExpanded, 'height-fit-content': !isContainerExpanded }">
+                <div class="d-flex px-3 py-2 align-items-center"> 
+                    <div class="cfs-title1">{{ selectedContainer ? 'Container: ' + selectedContainer?.container_number : 'Container' }}</div> 
+                    <div class="ml-auto" > 
+                        <mat-form-field class="flex-grow-1" *ngIf="isContainerSearch && isContainerExpanded" >
+                            <mat-label>Search</mat-label>
+                            <input type="text" matInput [formControl]="containerSearchFC" placeholder="Search Container">
+                        </mat-form-field>
+                        <button mat-icon-button *ngIf="isContainerExpanded" (click)="isContainerSearch = !isContainerSearch; containerSearchFC.setValue('')" >
+                            <mat-icon>{{ isContainerSearch ? 'close' : 'search'}}</mat-icon>
+                        </button>
+                        <button mat-icon-button  *ngIf="isContainerExpanded" (click)="openContainerScannerPopup(containerSearchFC, 'container-desktop')">
+                            <mat-icon>qr_code_scanner</mat-icon>
+                        </button>
+                        <button mat-icon-button *ngIf="selectedContainer" (click)="openContainerDetailsPopup(selectedContainer)">
+                            <mat-icon>info</mat-icon>
+                        </button> 
+                        <button mat-raised-button *ngIf="selectedContainer" color="primary"  (click)="uploadPhoto()">
+                            Photo
+                        </button> 
+                        <button mat-icon-button (click)="isContainerExpanded = !isContainerExpanded">
+                            <mat-icon>{{ isContainerExpanded ? 'expand_less' : 'expand_more' }}</mat-icon>
+                        </button>
+                    </div> 
+                </div>
+                <app-list-container [hidden]="!isContainerExpanded" [search]="containerSearchFC.value" (selectedRow)="containerSelected($event)" class="flex-grow-1 overflow-auto" ></app-list-container>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="d-flex flex-column overflow-auto" *ngIf="selectedContainer" [ngClass]="{'h-50': isHblExpanded && isContainerExpanded, 'flex-grow-1': isHblExpanded && !isContainerExpanded, 'height-fit-content': !isHblExpanded}">
+                <div class="d-flex px-3 py-2 align-items-center"> 
+                    <div class="cfs-title1" *ngIf="isHblExpanded">HBL List</div> 
+                    <h3 class="m-0" *ngIf="!isHblExpanded">HBL NO: {{selectedHbl.hblNumber}}</h3>
+                    <div class="ml-auto" > 
+                        <mat-form-field class="flex-grow-1" *ngIf="isHblSearch && isHblExpanded" >
+                            <mat-label>Search</mat-label>
+                            <input type="text" matInput [formControl]="hblSearchFC" placeholder="Search HBL">
+                        </mat-form-field>
+                        <button mat-icon-button *ngIf="isHblExpanded" (click)="isHblSearch = !isHblSearch; hblSearchFC.setValue('')" >
+                            <mat-icon>{{ isHblSearch ? 'close' : 'search'}}</mat-icon>
+                        </button>
+                        <button mat-icon-button *ngIf="isHblExpanded" (click)="openScannerPopup(hblSearchFC, 'hbl-desktop')" >
+                            <mat-icon>qr_code_scanner</mat-icon>
+                        </button>
+                        <button mat-icon-button (click)="isHblExpanded = !isHblExpanded">
+                            <mat-icon>{{ isHblExpanded ? 'expand_more' : 'expand_less'  }}</mat-icon>
+                        </button></div> 
+                </div>
+                <app-list-hbl [selectedContainer]="selectedContainer" [search]="hblSearchFC.value" (selectedRow)="hblSelected($event)"  *ngIf="isHblExpanded" class="flex-grow-1 overflow-auto"></app-list-hbl>
+            </div>
+        </div>
+        <mat-divider [vertical]="true"></mat-divider>
+        <div class=" flex-column overflow-auto" [ngClass]="{ 'w-50 d-flex': isHblDetailsExpanded, 'd-none': !isHblDetailsExpanded }" >
+            <div class="d-flex px-3 py-2 align-items-center shadow"> 
+                <div class="cfs-title1">Unloading Details</div> 
+                <div class="ml-auto" (click)="isHblDetailsExpanded = !isHblDetailsExpanded"> 
+                    <button mat-icon-button>
+                        <mat-icon>{{ !isHblDetailsExpanded ? 'navigate_before' : 'navigate_next' }}</mat-icon>
+                    </button>
+                </div> 
+            </div>
+            <app-hbl-detail class="flex-grow-1 overflow-auto" [selectedContainer]="selectedContainer" [selectedHbl]="selectedHbl" ></app-hbl-detail>
+        </div>
+        <div class="d-flex flex-column" *ngIf="!isHblDetailsExpanded">
+            <button mat-icon-button (click)="isHblDetailsExpanded = !isHblDetailsExpanded">
+                <mat-icon>{{ !isHblDetailsExpanded ? 'navigate_before' : 'navigate_next' }}</mat-icon>
+            </button>
+            <div class="d-flex mx-auto" (click)="isHblDetailsExpanded = !isHblDetailsExpanded" ><h3 class=" writing-mode-tb-rl m-0">HBL Details</h3></div>
+        </div>
+    </div>
+    <div class="d-flex flex-column d-md-none h-100 w-100 overflow-auto">
+        <mat-tab-group mat-stretch-tabs [headerPosition]="'below'" [selectedIndex]="tabIndex" (selectedIndexChange)="tabIndex = $event" class="h-100 devanning-mobile-tab-container overflow-auto">
+            <mat-tab label="Container" class="h-100 d-flex flex-column overflow-auto">
+                <div class="m-0 px-3 py-2 cfs-title1 shadow">Container </div> 
+                <div class="bg-white border-top p-2 d-flex justify-content-center align-items-center">
+                    <button *ngIf="!showMobileContainerSearch && selectedContainer || showMobileContainerSearch && selectedContainer" class="mr-2" mat-raised-button color="primary" (click)="openContainerDetailsPopup(selectedContainer)"><mat-icon>info</mat-icon> Info &nbsp;&nbsp;</button>
+                    <button mat-raised-button  *ngIf="!showMobileContainerSearch && selectedContainer || showMobileContainerSearch && selectedContainer" color="primary" (click)="uploadPhoto()" class="mr-2">Upload Photo</button>  
+                    <mat-form-field class="flex-grow-1" *ngIf="showMobileContainerSearch" >
+                        <mat-label>Search</mat-label>
+                        <input type="text" matInput [formControl]="containerSearchFC" placeholder="Search Container">
+                    </mat-form-field>
+                    <button mat-icon-button *ngIf="showMobileContainerSearch" (click)="showMobileContainerSearch = !showMobileContainerSearch; containerSearchFC.setValue('')" >
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    <button *ngIf="!showMobileContainerSearch" class="ml-2" mat-raised-button color="primary" (click)="showMobileContainerSearch = !showMobileContainerSearch"><mat-icon>search</mat-icon> Search &nbsp;&nbsp;</button>
+                    <button *ngIf="!showMobileContainerSearch" mat-raised-button color="primary" (click)="openContainerScannerPopup(containerSearchFC, 'container-mobile')" class="ml-2" ><mat-icon>qr_code_scanner</mat-icon> Scan &nbsp;&nbsp;</button>
+
+                </div>
+                <app-list-container (selectedRow)="containerSelected($event)" [search]="containerSearchFC.value" class="flex-grow-1 overflow-auto" ></app-list-container>
+                
+            </mat-tab>
+            <mat-tab label="HBL">
+                <div class="m-0 px-3 py-2 cfs-title1 shadow">HBL List</div> 
+                <div class="bg-white border-top p-2 d-flex justify-content-center align-items-center">
+                    <mat-form-field class="flex-grow-1" *ngIf="showMobileHblSearch" >
+                        <mat-label>Search</mat-label>
+                        <input type="text" matInput [formControl]="hblSearchFC" placeholder="Search HBL">
+                    </mat-form-field>
+                    <button mat-icon-button *ngIf="showMobileHblSearch" (click)="showMobileHblSearch = !showMobileHblSearch; hblSearchFC.setValue('')" >
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    <button *ngIf="!showMobileHblSearch" mat-raised-button color="primary" (click)="showMobileHblSearch = !showMobileHblSearch"><mat-icon>search</mat-icon> Search &nbsp;&nbsp;</button>
+                    <button *ngIf="!showMobileHblSearch" mat-raised-button color="primary" (click)="openScannerPopup(hblSearchFC, 'hbl-mobile')" class="ml-2" ><mat-icon>qr_code_scanner</mat-icon> Scan &nbsp;&nbsp;</button>
+                </div>
+                <app-list-hbl [selectedContainer]="selectedContainer"  [search]="hblSearchFC.value"  (selectedRow)="hblSelected($event)" class="flex-grow-1 overflow-auto"  ></app-list-hbl>
+                
+            </mat-tab>
+            <mat-tab label="Details">
+                <div class="m-0 px-3 py-2 cfs-title1 shadow">HBL Details</div> 
+                <app-hbl-detail class="flex-grow-1" [selectedContainer]="selectedContainer" [selectedHbl]="selectedHbl"  ></app-hbl-detail>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>
