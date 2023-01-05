@@ -59,8 +59,8 @@ export class HblDetailComponent implements OnInit, OnChanges {
 
   addItem(): void {
     const dialogRef = this.dialog.open(AddNewHblItemComponent, {
-      width: '40%',
-      height: '30%',
+      width: '70%',
+      height: '50%',
       data: {}
     });
     dialogRef.disableClose = true;

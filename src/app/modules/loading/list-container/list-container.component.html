@@ -12,20 +12,25 @@
             </ng-container>
           
             <!-- Symbol Column -->
-            <ng-container matColumnDef="carrier">
-              <th mat-header-cell *matHeaderCellDef>Carrier</th>
-              <td mat-cell *matCellDef="let element">{{element.carrier}}</td>
+            <ng-container matColumnDef="pol">
+              <th mat-header-cell *matHeaderCellDef>POL</th>
+              <td mat-cell *matCellDef="let element">{{element.pol}}</td>
             </ng-container>
 
             <!-- Symbol Column -->
             <ng-container matColumnDef="eta">
-                <th mat-header-cell *matHeaderCellDef>ETD</th>
-                <td mat-cell *matCellDef="let element">{{element.eta | date}}</td>
+                <th mat-header-cell *matHeaderCellDef>POD</th>
+                <td mat-cell *matCellDef="let element">{{ element.pod }}</td>
             </ng-container>
 
-            <ng-container matColumnDef="manifest">
-              <th mat-header-cell *matHeaderCellDef>Destination</th>
-              <td mat-cell *matCellDef="let element">{{element.manifest_seal}}</td>
+            <ng-container matColumnDef="carriername">
+              <th mat-header-cell *matHeaderCellDef>Carrier Name</th>
+              <td mat-cell *matCellDef="let element">{{element.carrier}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="cfs_cutoff date">
+              <th mat-header-cell *matHeaderCellDef>CFS Cutoff Date</th>
+              <td mat-cell *matCellDef="let element">{{element.eta | date}}</td>
             </ng-container>
           
             <tr mat-header-row *matHeaderRowDef="displayedColumns" class="sticky-top"></tr>
@@ -40,12 +45,13 @@
     <div class="flex-grow-1 overflow-auto d-block d-md-none" *ngIf="!isLoading">
       <mat-card *ngFor="let element of dataSource.filteredData" class="m-3" [ngClass]="{'table-selected-card': element.isSelected}" (click)="clickedRow(element)">
         <div class="cfs-title1 pb-2">{{element?.container_number}}</div>
-        <div class="pb-2">{{element?.eta}}</div>
+        <div class="pb-2">{{element?.pol}}</div>
+        <div class="pb-2">{{element?.pod}}</div>
         <div class="d-flex justify-content-between">
           <!-- <div>{{element?.vessel}}</div>
           <div>{{element?.voy}}</div> -->
           <div>{{element?.carrier}}</div>
-          <div>{{element?.manifest_seal}}</div>
+          <div>{{element?.eta}}</div>
         </div>
       </mat-card>
     </div>

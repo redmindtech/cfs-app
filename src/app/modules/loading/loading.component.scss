@@ -1,0 +1,8 @@
+::ng-deep .devanning-mobile-tab-container .mat-tab-body-wrapper {
+    flex-grow: 1;
+}
+
+::ng-deep .devanning-mobile-tab-container .mat-tab-body-content {
+    display: flex;
+    flex-direction: column;
+}

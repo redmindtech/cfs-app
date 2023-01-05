@@ -16,7 +16,7 @@ export class ListContainerComponent implements OnInit, OnChanges {
   dataSource = new MatTableDataSource();
   dataSourceArr = [];
   isLoading = true;
-  displayedColumns: string[] = ['container', 'carrier', 'eta', 'manifest'];
+  displayedColumns: string[] = ['container', 'pol', 'eta', 'carriername','cfs_cutoff date'];
   @Output() selectedRow = new EventEmitter();
   @Input() search: string;
   @Input() selectedContainer: any;
