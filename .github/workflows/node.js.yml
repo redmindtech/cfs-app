@@ -29,4 +29,10 @@ jobs:
       run: npm ci
     - name: Build cfs_applica
       run: npm run build --prod
+      
+    - name: Deploy to GitHub Pages 
+      uses: redmindtech/cfs-app@v3
+      with:
+          BRANCH: gh-pages
+          FOLDER: dist/cfs
  
