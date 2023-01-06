@@ -31,7 +31,7 @@ jobs:
       run: npm run build --prod
       
     - name: Deploy to GitHub Pages 
-      uses: redmindtech/cfs-app@v3
+      uses: redmindtech/actions-gh-pages@v1
       with:
           BRANCH: gh-pages
           FOLDER: dist/cfs
