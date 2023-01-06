@@ -32,14 +32,12 @@ jobs:
       
     - name: app_deploy
     - uses: actions/checkout@v1
-    - name: 'Deploy app using action'
-    - uses: ./
       with:
-            run_lint: true
-            github_access_token: ${{ secrets.ACCESS_TOKEN }}
-            build_configuration: dist/cfs
-            base_href: https://redmindtech.github.io/cfs-app/
-            deploy_branch: gh-pages 
-            angular_dist_build_folder: redmindtech/dist/cfs # The folder the action should deploy.
+          run_lint: true
+          github_access_token: ${{ secrets.ACCESS_TOKEN }}
+          build_configuration: dist/cfs
+          base_href: https://redmindtech.github.io/cfs-app/
+          deploy_branch: gh-pages 
+          angular_dist_build_folder: redmindtech/dist/cfs # The folder the action should deploy.
          
  
