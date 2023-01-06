@@ -40,8 +40,8 @@ jobs:
             run_lint: true
             github_access_token: ${{ secrets.ACCESS_TOKEN }}
             build_configuration: dist/cfs
-            base_href: /angular-deploy-gh-pages-actions/
+            base_href: https://redmindtech.github.io/cfs-app/
             deploy_branch: gh-pages 
             angular_dist_build_folder: redmindtech/dist/cfs # The folder the action should deploy.
-            angular_project_dir: cfs
+          angular_project_dir: cfs
  
