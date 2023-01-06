@@ -31,6 +31,8 @@ jobs:
       run: npm run build --prod
       
     - name: Deploy to GitHub Pages 
+    - uses: actions/checkout@v1
+    - name: deploy cfs
       uses: ./
       with:
           BRANCH: gh-pages
