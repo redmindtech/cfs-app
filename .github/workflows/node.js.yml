@@ -19,9 +19,9 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v1
     - name: Use Node.js ${{14}}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v1
       with:
         node-version: '14'
         cache: 'npm'
@@ -30,13 +30,11 @@ jobs:
     - name: Build cfs_applica
       run: npm run build --prod
       
-  test_action_and_deploy_demo: # make sure the action works on a clean machine without building
-        runs-on: ubuntu-latest
-        steps:
-        - uses: actions/checkout@v1
-        - name: 'Deploy app using action'
-          uses: ./
-          with:
+    - name: app_deploy
+    - uses: actions/checkout@v1
+    - name: 'Deploy app using action'
+    - uses: ./
+      with:
             run_lint: true
             github_access_token: ${{ secrets.ACCESS_TOKEN }}
             build_configuration: dist/cfs
