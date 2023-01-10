@@ -29,9 +29,9 @@ export class DeliveryDetailsPopupComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.details = this.data.bookingList.pack_master[0];
+    this.details = this.data.bookingList.Delivery_BL[0];
     this.cargoDeliveryService.packType().subscribe( (data:any) => {
-      this.types = data.pack_master.map( (item: any) => {
+      this.types = data.Delivery_BL.map( (item: any) => {
         return { value: item.port_code, viewValue: item.port_name }
       });
     });

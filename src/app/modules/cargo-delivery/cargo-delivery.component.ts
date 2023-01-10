@@ -91,7 +91,7 @@ export class CargoDeliveryComponent implements OnInit {
   searchBooking(): void {
     this.cargoDeliveryService.getCargoDeliveryList(this.search).subscribe( (data:any) => {
       this.bookingList = data;
-       if(this.bookingList.pack_master[0].status == 'FAILED'){
+       if(this.bookingList.Delivery_BL[0].status == 'FAILED'){
         const dialogRef = this.dialog.open(DeliveryFailStatusComponent, {
           // height: '400px',
         width: '400px',
