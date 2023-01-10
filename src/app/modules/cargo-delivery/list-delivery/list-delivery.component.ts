@@ -13,7 +13,7 @@ export class ListDeliveryComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.details = this.bookingList.pack_master[0];
+    this.details = this.bookingList.Delivery_BL[0];
   }
 
 }
