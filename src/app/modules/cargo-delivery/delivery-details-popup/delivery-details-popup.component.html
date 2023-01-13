@@ -1,7 +1,7 @@
 <div class="d-flex">
-    <div class="d-flex flex-column w-100">
+    <div class="d-flex flex-column w-100 ">
 
-      <div class="w-100">
+      <!-- <div class="w-100">
         <mat-form-field class="w-50 pr-2" >
           <mat-label>Enter Packages</mat-label>
           <input matInput placeholder="Enter Packages" [(ngModel)]="details.packages" >
@@ -38,12 +38,49 @@
         <input matInput placeholder="Truck No" [(ngModel)]="truckName" >
       </mat-form-field>
     </div>
-  </div>
+  </div> -->
 
-  <div class="d-flex pb-1 pt-2">
-    <button mat-raised-button color="primary" class="ml-auto" (click)="uploadPhoto()" >
-        Upload Photos
-      </button>
-    <button mat-raised-button color="primary" class="ml-3" (click)="save()">Save</button>
-    <button mat-raised-button mat-dialog-close class="ml-3" >Close</button>  
+  <app-loader *ngIf="isLoading"></app-loader>
+  <div class="d-flex flex-column overflow-auto h-150">
+    <div class="cfs-title1">Delivery Item</div>
+            <div class="flex-grow-1 container overflow-auto h-150">
+                  <form class="col-12 d-flex flex-column h-100">
+                      <div class="d-flex justify-content-between w-100">
+                        
+                        <mat-form-field class="px-1 w-50">
+                          <mat-label *ngIf="details.pack_type"> {{details.pack_type}} </mat-label> 
+                          <mat-lable *ngIf="!details.pack_type">Type</mat-lable> 
+                          <mat-select [(ngModel)]="packageType" name="type">
+                          <mat-option *ngFor="let type of types" [value]="type.value" >
+                            {{type.viewValue}}  
+                          </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                          <mat-form-field class="px-1 w-50" >
+                            <mat-label>Delivered Qty</mat-label>
+                            <input matInput placeholder="Enter Delivery Qty" type="number" [(ngModel)]="DeliveredPiece" (keyup)="calculateCBM()" name="DeliveredPiece" >
+                        </mat-form-field>
+                      </div>
+                  </form>
+            </div>
+        <!-- <div class="d-flex pb-1 py-5">
+          <button mat-raised-button class="ml-auto" mat-dialog-close >
+            Close
+          </button>
+          <button mat-raised-button color="primary" class="ml-3" >
+              Save
+          </button>
+        </div> -->
+        <div class="d-flex align-items-end h-150 mt-5 pt-3">
+          <div class="d-flex pb-1 pt-2 mt-5 pt-5">
+                <button mat-raised-button color="primary" class="ml-4" (click)="uploadPhoto()">
+                    Upload Photos
+                  </button>
+                <button mat-raised-button color="primary" class="ml-5" (click)="con()">Complete</button>
+                <button mat-raised-button color="primary" class="ml-5" (click)="save()" [disabled]="!DeliveredPiece">Save</button>
+         </div>
 </div>
+
+ <div class="d-flex justify-content-center mt-1">
+  <button mat-raised-button mat-dialog-close class="ml-3">Close</button>
+ </div>

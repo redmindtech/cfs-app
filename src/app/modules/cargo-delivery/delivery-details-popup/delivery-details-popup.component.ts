@@ -1,5 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { LoadingApiService } from '../../loading/service/loading-api.service';
 import { CargoDeliveryService } from '../cargo-delivery.service';
 import { SaveFailStatusComponent } from '../save-fail-status/save-fail-status.component';
 import { StatusPopupComponent } from '../status-popup/status-popup.component';
@@ -12,7 +13,7 @@ import { UploadPhotoPopupComponent } from '../upload-photo-popup/upload-photo-po
 })
 export class DeliveryDetailsPopupComponent implements OnInit {
   details: any;
-  bookingList: any= {};
+  bookingList: any;
   types: any;
   packageType: any;
   truckName: any;
@@ -20,22 +21,35 @@ export class DeliveryDetailsPopupComponent implements OnInit {
   Volumn: any;
   Weight: any;
   saveItems: any;
+  isLoading = false;
+  DeliveredPiece:any='';
+  draft_no:any=null;
+  bookingNo:any=null
+  
+  
 
   constructor(
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public cargoDeliveryService: CargoDeliveryService
+    public cargoDeliveryService: CargoDeliveryService,
+    public DeliveryItemApiService: LoadingApiService
 
   ) { }
 
   ngOnInit(): void {
     this.details = this.data.bookingList.Delivery_BL[0];
+    this.bookingNo=this.data.booking_no;
+    this.draft_no=this.data.draft_no;
     this.cargoDeliveryService.packType().subscribe( (data:any) => {
-      this.types = data.Delivery_BL.map( (item: any) => {
+      this.types = data.pack_master.map( (item: any) => {
         return { value: item.port_code, viewValue: item.port_name }
       });
     });
    
+  }
+  con(){
+    console.log(this.bookingNo);
+    console.log(this.draft_no);
   }
 
   uploadPhoto(): void {
@@ -51,7 +65,70 @@ export class DeliveryDetailsPopupComponent implements OnInit {
     uploadPopupRef.afterClosed().subscribe( (result: any) => {
     });
   }
+
+
+  // receivedPiece: any;
+  receivedWeight: any;
+  receivedVolume: any;
+  damage: any;
+  damageType: any;
+  damageNotes: any;
+  landedMarks: any;
+  cfsNote: any;
+  length: any;
+  width: any;
+  height: any;
+  cbm: any='';
+  weight: any;
+  containerNo: any;
+  jobNo: any;
+  hblNumber: any;
+  subJobNo: any;
+  
+  selectedContainer:any={
+    segment_code:'05',
+    container_number:'WHLU5580880',
+  }
+
+
   save(): void {
+    if(this.DeliveredPiece){
+    let details: any = {
+      receivedPiece: this.DeliveredPiece ? this.DeliveredPiece : '',
+      receivedWeight: this.receivedWeight ? this.receivedWeight : '',
+      receivedVolume: this.receivedVolume ? this.receivedVolume : '',
+      damageCondition: '',
+      damageType: this.damageType ? this.damageType : '',
+      damageNotes: this.damageNotes ? this.damageNotes : '',
+      landedMarks: this.landedMarks ? this.landedMarks: '',
+      cfsNote: this.cfsNote ? this.cfsNote: '',
+      length: this.length ? this.length : '',
+      width: this.width ? this.width : '',
+      height: this.height ? this.height : '',
+      cbm: this.cbm ? this.cbm : '',
+      weight: this.weight ? this.weight : '',
+      unloadTime: this.formatDate( (new Date()).getTime() ),
+      containerNo: 'WHLU5580880',
+      jobNo: '22100302504',
+      hblNumber:'220112000272',
+      packageType:'',
+      subJobNo: this.subJobNo ? this.subJobNo : '',
+
+    }
+    
+    // this.DeliveryItemApiService.getSaveItem(details, this.selectedContainer).subscribe( (data:any) => {
+    //   this.isLoading = false;
+    //   console.log(this.bookingList);
+      
+      
+    // });
+    
+    this.cargoDeliveryService.SaveDeliveryItem(this.bookingNo,this.draft_no,this.DeliveredPiece).subscribe(data =>{
+      console.log(data)
+    })
+    }
+    
+
     // let saveItems: any = {
     //   packages: this.details.packages ? this.details.packages : '',
     //   pack_type: this.details.pack_type ? this.details.pack_type : '',
@@ -73,12 +150,24 @@ export class DeliveryDetailsPopupComponent implements OnInit {
     //   });
     // });
 
-    const uploadPopupRef = this.dialog.open(StatusPopupComponent, {
-      width: '400px',
-      data: { }
-    });
-    uploadPopupRef.afterClosed().subscribe( (result: any) => {
-    });
+    // const uploadPopupRef = this.dialog.open(StatusPopupComponent, {
+    //   width: '400px',
+    //   data: { }
+    // });
+    // uploadPopupRef.afterClosed().subscribe( (result: any) => {
+    // });
 
+  }
+  formatDate(inp: number) {
+    let inDate = new Date(inp);
+    let options: any = {  
+        weekday: "long", year: "numeric", month: "short",  
+        day: "numeric", hour: "2-digit", minute: "2-digit"  
+    };  
+    return inDate.toLocaleTimeString("en-us", options);
+}
+  
+  calculateCBM(){
+    
   }
 }

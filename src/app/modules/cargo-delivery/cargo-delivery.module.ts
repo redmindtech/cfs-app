@@ -30,6 +30,7 @@ import { DeliveryFailStatusComponent } from './delivery-fail-status/delivery-fai
 import { SaveFailStatusComponent } from './save-fail-status/save-fail-status.component';
 
 
+
 @NgModule({
   declarations: [
     CargoDeliveryComponent,
@@ -39,7 +40,8 @@ import { SaveFailStatusComponent } from './save-fail-status/save-fail-status.com
     UploadPhotoPopupComponent,
     StatusPopupComponent,
     DeliveryFailStatusComponent,
-    SaveFailStatusComponent
+    SaveFailStatusComponent,
+    
   ],
   imports: [
     CommonModule,

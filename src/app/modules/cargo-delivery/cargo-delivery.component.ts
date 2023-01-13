@@ -13,6 +13,8 @@ import { DeliveryFailStatusComponent } from './delivery-fail-status/delivery-fai
 })
 export class CargoDeliveryComponent implements OnInit {
 
+  
+
   bookingSearchFC = new FormControl();
   isBookingSearch = false;
   isBookingExpanded = true;
@@ -91,6 +93,8 @@ export class CargoDeliveryComponent implements OnInit {
   searchBooking(): void {
     this.cargoDeliveryService.getCargoDeliveryList(this.search).subscribe( (data:any) => {
       this.bookingList = data;
+      console.log(data);
+      
        if(this.bookingList.Delivery_BL[0].status == 'FAILED'){
         const dialogRef = this.dialog.open(DeliveryFailStatusComponent, {
           // height: '400px',
