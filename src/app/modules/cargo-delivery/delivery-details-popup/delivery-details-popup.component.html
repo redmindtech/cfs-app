@@ -50,10 +50,10 @@
                         <mat-form-field class="px-1 w-50">
                           <mat-label *ngIf="details.pack_type"> {{details.pack_type}} </mat-label> 
                           <mat-lable *ngIf="!details.pack_type">Type</mat-lable> 
-                          <mat-select [(ngModel)]="packageType" name="type">
-                          <mat-option *ngFor="let type of types" [value]="type.value" >
+                          <mat-select [(ngModel)]="packageType" name="type" [disabled]="true">
+                          <!-- <mat-option *ngFor="let type of types" [value]="type.value" >
                             {{type.viewValue}}  
-                          </mat-option>
+                          </mat-option> -->
                           </mat-select>
                       </mat-form-field>
                           <mat-form-field class="px-1 w-50" >
