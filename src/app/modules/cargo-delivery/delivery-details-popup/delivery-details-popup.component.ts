@@ -45,12 +45,17 @@ export class DeliveryDetailsPopupComponent implements OnInit {
         return { value: item.port_code, viewValue: item.port_name }
       });
     });
-   
+
+    
   }
-  con(){
-    console.log(this.bookingNo);
-    console.log(this.draft_no);
+  //clears delivered quantity data
+  x:number=0;
+  quantity(){
+    this.x=this.DeliveredPiece;
+    console.log(this.x);
+    this.DeliveredPiece='';
   }
+
 
   uploadPhoto(): void {
     const uploadPopupRef = this.dialog.open(UploadPhotoPopupComponent, {
@@ -65,6 +70,7 @@ export class DeliveryDetailsPopupComponent implements OnInit {
     uploadPopupRef.afterClosed().subscribe( (result: any) => {
     });
   }
+  
 
 
   // receivedPiece: any;
@@ -90,8 +96,12 @@ export class DeliveryDetailsPopupComponent implements OnInit {
     container_number:'WHLU5580880',
   }
 
+  
+
 
   save(): void {
+    this.quantity();
+    
     if(this.DeliveredPiece){
     let details: any = {
       receivedPiece: this.DeliveredPiece ? this.DeliveredPiece : '',
