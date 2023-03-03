@@ -73,14 +73,14 @@
           </button>
         </div> -->
         <div *ngIf="x != 0" class="ml-4" color="primary">
-          <h4>Load Quantity - {{x}}</h4>
+          <h4>Total {{x}} packages were added successfully, Remaining {{ totalpackage-x}}</h4>
         </div>
         <div class="d-flex align-items-end h-150 mt-4 pt-2">
           <div class="d-flex pb-1 pt-2 mt-5 pt-5">
                 <button mat-raised-button color="primary" class="ml-4" (click)="uploadPhoto()">
                     Upload Photos
                   </button>
-                <button mat-raised-button color="primary" class="ml-5" >Complete</button>
+                <button mat-raised-button color="primary" class="ml-5" [disabled]="DeliveredPiece>(totalpackage-x)">Complete</button>
                 <button mat-raised-button color="primary" class="ml-5" (click)="save()" [disabled]="!DeliveredPiece">Save</button>
          </div>
 </div>

@@ -30,24 +30,26 @@ export class DeliveryDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.details = this.bookingList;
-    //console.log(this.bookingList);
+    
+    this.details = this.bookingList.Delivery_BL[0];
+    console.log(this.bookingList);
 
     
      
   }
 
   deliveryItem(): void {
-    this.loadData();
-    this.AddDeliveryItem();
+   // this.loadData();
+   // this.AddDeliveryItem();
     //console.log(this.bookingList);
+    this.AddDeliveryItem(this.details);
+
     if(!this.isUploadClicked){
       this.isUploadClicked = true;
       const dialogRef = this.dialog.open(DeliveryDetailsPopupComponent, {
         height: '400px',
       width: '500px',
-        data: { bookingList: this.bookingList, draft_no:  this.draft_no,
-          bookingNo: this.bookingNo},
+        data: { bookingList: this.bookingList, draft_no:  this.draft_no},
       });
       dialogRef.disableClose = true; 
 
@@ -99,12 +101,21 @@ export class DeliveryDetailsComponent implements OnInit {
       console.log(data,'delete api')
       this.loadData();
     })}
-    AddDeliveryItem(){
-      this.CargoDeliveryService.getDeliveryItem(this.bookingList.Delivery_BL[0].BL_Booking).subscribe( (data)=> {
-            //console.log(data);
-            this.draft_no = data.draft_cfs_no;
+  // AddDeliveryItem(){
+  //     this.CargoDeliveryService.getDeliveryItem(this.bookingList.Delivery_BL[0].BL_Booking).subscribe( (data)=> {
+  //           //console.log(data);
+  //           this.draft_no = data.draft_cfs_no;
                
-      })
+  //     })
 
-    }
+  //   }
+
+  AddDeliveryItem(searchItem:any){
+    console.log(searchItem);
+    this.CargoDeliveryService.addDelivery(searchItem).subscribe( (data)=> {
+                //console.log(data);
+    this.draft_no=data.draft_cfs_no            
+                   
+          })
+  }
 }

@@ -22,9 +22,10 @@ export class DeliveryDetailsPopupComponent implements OnInit {
   Weight: any;
   saveItems: any;
   isLoading = false;
-  DeliveredPiece:any='';
+  DeliveredPiece:number;
   draft_no:any=null;
-  bookingNo:any=null
+  bookingNo:any=null;
+  totalpackage:number;
   
   
 
@@ -38,22 +39,24 @@ export class DeliveryDetailsPopupComponent implements OnInit {
 
   ngOnInit(): void {
     this.details = this.data.bookingList.Delivery_BL[0];
-    this.bookingNo=this.data.booking_no;
+    console.log(this.details);
+    this.totalpackage=this.details.packages;
+    //this.bookingNo=this.data.booking_no;
     this.draft_no=this.data.draft_no;
-    this.cargoDeliveryService.packType().subscribe( (data:any) => {
-      this.types = data.pack_master.map( (item: any) => {
-        return { value: item.port_code, viewValue: item.port_name }
-      });
-    });
+    // this.cargoDeliveryService.packType().subscribe( (data:any) => {
+    //   this.types = data.pack_master.map( (item: any) => {
+    //     return { value: item.port_code, viewValue: item.port_name }
+    //   });
+    // });
 
     
   }
   //clears delivered quantity data
   x:number=0;
   quantity(){
-    this.x=this.DeliveredPiece;
+    this.x=this.x+this.DeliveredPiece;
     console.log(this.x);
-    this.DeliveredPiece='';
+    this.DeliveredPiece=0;
   }
 
 
@@ -101,7 +104,7 @@ export class DeliveryDetailsPopupComponent implements OnInit {
 
   save(): void {
     this.quantity();
-    
+    console.log(this.DeliveredPiece)
     if(this.DeliveredPiece){
     let details: any = {
       receivedPiece: this.DeliveredPiece ? this.DeliveredPiece : '',
@@ -133,9 +136,10 @@ export class DeliveryDetailsPopupComponent implements OnInit {
       
     // });
     
-    this.cargoDeliveryService.SaveDeliveryItem(this.bookingNo,this.draft_no,this.DeliveredPiece).subscribe(data =>{
-      console.log(data)
-    })
+    // this.cargoDeliveryService.SaveDeliveryItem(this.bookingNo,this.draft_no,this.DeliveredPiece).subscribe(data =>{
+    //   console.log(data)
+    // })
+
     }
     
 

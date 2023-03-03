@@ -36,7 +36,7 @@ export class CargoDeliveryService {
         }  
     }) );
   }
-
+//1--search
   getCargoDeliveryList(search:any): Observable<any> {
 
     let saasId = "LIVEFSL";
@@ -60,6 +60,7 @@ export class CargoDeliveryService {
         }  
     }) );
   }
+
 
   getDeliveryItem(search:any): Observable<any> {
     let saasId = "LIVEFSL";
@@ -113,5 +114,33 @@ export class CargoDeliveryService {
         }  
     }) );
   }
+
+//2--add item
+addDelivery(searchitem:any){
+  let saasId = "LIVEFSL";
+  let segment_code = "";
+  let user_token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkNGU1RBQjEiLCJuYmYiOjE2NzUxNjg5ODUsImV4cCI6MTcwNjcwNDk4NSwiaWF0IjoxNjc1MTY4OTg1fQ.7Ot1oaQMjkNphCPaiWp2hAizm2O9jn4smnOEBjx7pm0";
+  //let booking_no=search;
+
+const httpOptions : Object = {
+  headers: new HttpHeaders({
+    'Content-Type':'application/x-www-form-urlencoded'
+  })
+};
+const params=new URLSearchParams();
+  //let user_token = window.localStorage.getItem("Token");
+  
+  let url = `${environment.apiUrl}/add_item_delivery?user_token=${user_token}&saas_id=LIVEFSL&segment_code=${segment_code}&booking_no=${searchitem.BL_Booking}1&draft_cfs_no=''&sl_no=${searchitem.Slno}&job_subjob_uid=${searchitem.job_subjob_uid}&item_desc=${searchitem.commodity}&pack_code=${searchitem.pack_type}&customer_name&customer_code&driver_name=${searchitem.Driver_Name}&truck_no=${searchitem.Truck_No}&received_qty=${searchitem.packages}&volume&weight&cfs_note&mark_no&supplier_code&supplier_name&supplier_ref&receive_delivery=DELIVERY`;
+  return this.http.post<any>(url, params.toString(),httpOptions)
+  .pipe( map(res => {
+      try {
+          return res;
+
+      } catch (e) {
+          return res;
+      }  
+  }) );
+}
+
 
 }
