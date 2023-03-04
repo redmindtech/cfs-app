@@ -59,6 +59,7 @@
                           <mat-form-field class="px-1 w-50" >
                             <mat-label>Delivered Qty</mat-label>
                             <input matInput placeholder="Enter Delivery Qty" type="number" [(ngModel)]="DeliveredPiece" (keyup)="calculateCBM()" name="DeliveredPiece" >
+                            <mat-hint class="text-danger" *ngIf="DeliveredPiece>totalpackage">Max limit exceeded</mat-hint>
                         </mat-form-field>
                       </div>
                   </form>
@@ -72,16 +73,16 @@
               Save
           </button>
         </div> -->
-        <div *ngIf="x != 0" class="ml-4" color="primary">
-          <h4>Total {{x}} packages were added successfully, Remaining {{ totalpackage-x}}</h4>
+        <div *ngIf="x != 0" class="ml-4" >
+          <h4 color="primary">Total {{x}} packages were added successfully, Remaining {{ totalpackage-x}}</h4>
         </div>
         <div class="d-flex align-items-end h-150 mt-4 pt-2">
           <div class="d-flex pb-1 pt-2 mt-5 pt-5">
-                <button mat-raised-button color="primary" class="ml-4" (click)="uploadPhoto()">
+                <button mat-raised-button color="primary" class="ml-4" (click)="uploadPhoto()" >
                     Upload Photos
                   </button>
-                <button mat-raised-button color="primary" class="ml-5" [disabled]="DeliveredPiece>(totalpackage-x)">Complete</button>
-                <button mat-raised-button color="primary" class="ml-5" (click)="save()" [disabled]="!DeliveredPiece">Save</button>
+                <button mat-raised-button color="primary" class="ml-5" [disabled]="DeliveredPiece>(totalpackage-x)" (click)="deliveryComplete()">Complete</button>
+                <button mat-raised-button color="primary" class="ml-5" (click)="save()" [disabled]="(DeliveredPiece>(totalpackage-x)) || (totalpackage==x) ">Save</button>
          </div>
 </div>
 

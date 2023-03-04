@@ -48,7 +48,8 @@ export class CargoDeliveryService {
     })
   };
   const params=new URLSearchParams();
-    let user_token = window.localStorage.getItem("Token");
+    //let user_token = window.localStorage.getItem("Token");
+    let user_token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkNGU1RBQjEiLCJuYmYiOjE2NzUxNjg5ODUsImV4cCI6MTcwNjcwNDk4NSwiaWF0IjoxNjc1MTY4OTg1fQ.7Ot1oaQMjkNphCPaiWp2hAizm2O9jn4smnOEBjx7pm0";
     let url = `${environment.apiUrl}/getcargo_delivery_list?user_token=${user_token}&username=${username}&saas_id=${saasId}&search_key=${search_key}`;
     return this.http.post<any>(url, params.toString(),httpOptions)
     .pipe( map(res => {
@@ -142,5 +143,51 @@ const params=new URLSearchParams();
   }) );
 }
 
+//3-add delivery item Qty
+addDeliveryQty(Deliveryitem:any,quantity:any,draft_no:any){
+  let user_token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkNGU1RBQjEiLCJuYmYiOjE2NzUxNjg5ODUsImV4cCI6MTcwNjcwNDk4NSwiaWF0IjoxNjc1MTY4OTg1fQ.7Ot1oaQMjkNphCPaiWp2hAizm2O9jn4smnOEBjx7pm0";
+  console.log(Deliveryitem,quantity);
+
+  const httpOptions : Object = {
+    headers: new HttpHeaders({
+      'Content-Type':'application/x-www-form-urlencoded'
+    })
+  };
+  const params=new URLSearchParams();
+    
+    let url = `${environment.apiUrl}/add_item_delivery_detail?user_token=${user_token}&saas_id=LIVEFSL&booking_no=${Deliveryitem.BL_Booking}&draft_cfs_no=${draft_no}&volume=&weight=&receive_delivery=DELIVERY&received_qty=${quantity}&length&breadth&height&volume`;
+    return this.http.post<any>(url, params.toString(),httpOptions)
+    .pipe( map(res => {
+        try {
+            return res;
+
+        } catch (e) {
+            return res;
+        }  
+    }) );
+
+  }
+
+//4-complete delivery
+DeliveryItemComplete(cfs_draft_no:any){
+  let user_token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkNGU1RBQjEiLCJuYmYiOjE2NzUxNjg5ODUsImV4cCI6MTcwNjcwNDk4NSwiaWF0IjoxNjc1MTY4OTg1fQ.7Ot1oaQMjkNphCPaiWp2hAizm2O9jn4smnOEBjx7pm0";
+  const httpOptions : Object = {
+    headers: new HttpHeaders({
+      'Content-Type':'application/x-www-form-urlencoded'
+    })
+  };
+  const params=new URLSearchParams();
+
+  let url = `${environment.apiUrl}/cargo_delivery?user_token=${user_token}&saas_id=LIVEFSL&cfs_delivery_no=${cfs_draft_no}`;
+  return this.http.post<any>(url, params.toString(),httpOptions)
+  .pipe( map(res => {
+      try {
+          return res;
+
+      } catch (e) {
+          return res;
+      }  
+  }) );
+}
 
 }

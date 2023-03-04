@@ -22,6 +22,7 @@ export class DeliveryDetailsComponent implements OnInit {
   dataSource = [];
   displayedColumns = [ 'receivedPiece', 'damageNotes', 'actions'];
   selectedHbl:true;
+  buttonDisable:boolean=true;
 
   constructor(
     public dialog: MatDialog,
@@ -31,11 +32,18 @@ export class DeliveryDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.details = this.bookingList.Delivery_BL[0];
-    console.log(this.bookingList);
-
+    this.details = this.bookingList?.Delivery_BL?.[0];
+    console.log('this.bookingList');
+    this.enableDeliverybutton(this.details)
     
      
+  }
+  enableDeliverybutton(searchitem:any){
+    if(searchitem?.packages != 0){
+      this.buttonDisable=false;
+      //console.log(searchitem)
+    }
+
   }
 
   deliveryItem(): void {
@@ -44,25 +52,25 @@ export class DeliveryDetailsComponent implements OnInit {
     //console.log(this.bookingList);
     this.AddDeliveryItem(this.details);
 
-    if(!this.isUploadClicked){
-      this.isUploadClicked = true;
-      const dialogRef = this.dialog.open(DeliveryDetailsPopupComponent, {
-        height: '400px',
-      width: '500px',
-        data: { bookingList: this.bookingList, draft_no:  this.draft_no},
-      });
-      dialogRef.disableClose = true; 
+  //   if(!this.draft_no){
+  //     this.isUploadClicked = true;
+  //     const dialogRef = this.dialog.open(DeliveryDetailsPopupComponent, {
+  //       height: '400px',
+  //     width: '500px',
+  //       data: { bookingList: this.bookingList, draft_no:  this.draft_no},
+  //     });
+  //     dialogRef.disableClose = true; 
 
-    dialogRef.afterClosed().
-    subscribe(result => { 
-      if(result){
-        this.loadData();
-      }
-    });
+  //   dialogRef.afterClosed().
+  //   subscribe(result => { 
+  //     if(result){
+  //       this.loadData();
+  //     }
+  //   });
     
     
-    this.isUploadClicked = false;
-  }
+  //   this.isUploadClicked = false;
+  // }
   }
 
   selectedContainer:any={
@@ -113,9 +121,18 @@ export class DeliveryDetailsComponent implements OnInit {
   AddDeliveryItem(searchItem:any){
     console.log(searchItem);
     this.CargoDeliveryService.addDelivery(searchItem).subscribe( (data)=> {
-                //console.log(data);
-    this.draft_no=data.draft_cfs_no            
-                   
-          })
+                console.log(data);
+      this.draft_no=data.draft_cfs_no   
+         if(this.draft_no != ''){
+      const dialogRef = this.dialog.open(DeliveryDetailsPopupComponent, {
+        height: '400px',
+      width: '500px',
+        data: { bookingList: this.bookingList, draft_no:  this.draft_no},
+      });
+      dialogRef.disableClose = true; 
+
+    
+  }        
+    })
   }
 }

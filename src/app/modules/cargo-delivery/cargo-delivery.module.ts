@@ -28,6 +28,7 @@ import { UploadPhotoPopupComponent } from './upload-photo-popup/upload-photo-pop
 import { StatusPopupComponent } from './status-popup/status-popup.component';
 import { DeliveryFailStatusComponent } from './delivery-fail-status/delivery-fail-status.component';
 import { SaveFailStatusComponent } from './save-fail-status/save-fail-status.component';
+import { CompleteStatusPopupComponent } from './complete-status-popup/complete-status-popup.component';
 
 
 
@@ -41,6 +42,7 @@ import { SaveFailStatusComponent } from './save-fail-status/save-fail-status.com
     StatusPopupComponent,
     DeliveryFailStatusComponent,
     SaveFailStatusComponent,
+    CompleteStatusPopupComponent,
     
   ],
   imports: [
