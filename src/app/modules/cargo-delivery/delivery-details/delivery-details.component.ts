@@ -127,6 +127,7 @@ export class DeliveryDetailsComponent implements OnInit {
       const dialogRef = this.dialog.open(DeliveryDetailsPopupComponent, {
         height: '400px',
       width: '500px',
+      disableClose: false,
         data: { bookingList: this.bookingList, draft_no:  this.draft_no},
       });
       dialogRef.disableClose = true; 

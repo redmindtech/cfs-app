@@ -27,6 +27,7 @@ export class DeliveryDetailsPopupComponent implements OnInit {
   draft_no:any=null;
   bookingNo:any=null;
   totalpackage:number;
+  deliveryMessage:any;
   
   
 
@@ -54,7 +55,7 @@ export class DeliveryDetailsPopupComponent implements OnInit {
     
   }
   //clears delivered quantity data
-  x:number=0;
+  public x:number=0;
   Resetquantity(){
     this.x=this.x+this.DeliveredPiece;
     console.log(this.x);
@@ -183,18 +184,25 @@ export class DeliveryDetailsPopupComponent implements OnInit {
   }
 
   deliveryComplete(){
-    this.cargoDeliveryService.DeliveryItemComplete(this.draft_no).subscribe( (data)=> {
+    this.dialog.closeAll();
+    this.cargoDeliveryService.DeliveryItemComplete(this.draft_no).subscribe( (data:any)=> {
       console.log(data);
-      
-
-  })
-  const dialogRef = this.dialog.open(CompleteStatusPopupComponent, {
-        height: '400px',
-      width: '500px',
-        data: { bookingList: this.bookingList, draft_no:  this.draft_no},
+      this.deliveryMessage=data;
+      if(data){
+      const dialogRef = this.dialog.open(CompleteStatusPopupComponent, {
+        height: '300px',
+        width: '500px',
+        data: {data:this.deliveryMessage},
+        //disableClose: false
       });
-      dialogRef.disableClose = true; 
+      dialogRef.disableClose = true;
+           }
+    
+  })
+     
+    
   }
+ 
   
 
   formatDate(inp: number) {

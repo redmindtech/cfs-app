@@ -1,23 +1,19 @@
-<div class="flex-grow-1 overflow-auto d-none d-md-block ">
-<div class="d-flex flex-column overflow-auto">
-   
-  <div class="flex-grow-1 overflow-auto d-none d-md-block" *ngIf="true">
-    
-    <div>
-      <mat-card>
-        <div class="pb-2 color1 text-black pl-2 pt-2">Job : </div>
-        <div class="pb-2 color pl-2 pt-2">BL/Booking : </div>
-        <div class="pb-2 color1 text-black pl-2 pt-2">Orgin :</div>
-        <div class="pb-2 color pl-2 pt-2">Destination : </div>
-      
-      </mat-card>
-      
-    </div>
-  </div>
-  <div class="flex-grow-1 overflow-auto d-block d-md-none" *ngIf="true">
+<div>
+       
+          <div class="pb-2 color1 text-black pl-2 pt-2">HBL : {{deliveryCompleteMessage?.data?.Delivery_BL?.HBL}}</div>
+          <div class="pb-2 color pl-2 pt-2">Delivered Packages : {{deliveryCompleteMessage?.data?.Delivery_BL?.Delivered_Package_qty}} {{deliveryCompleteMessage?.data?.Delivery_BL?.Delivered_package}}</div>
+          <div class="pb-2 color1 text-black pl-2 pt-2">Volume : {{deliveryCompleteMessage?.data?.Delivery_BL?.Delivered_volume}}</div>
+          <div class="pb-2 color pl-2 pt-2">Weight : {{deliveryCompleteMessage?.data?.Delivery_BL?.Delivered_weight}}</div>
+          <div class="text-danger font-weight-bold text-uppercase ml-5 pl-1 mt-2 ">Delivery Completed Successfully! click to close</div>
+          <div class="d-flex justify-content-center mt-1">
+            <button mat-raised-button mat-dialog-close class="ml-3 mt-3" (click)="close()">Close</button>
+           </div>
+</div>
+  
+  <!-- <div class="flex-grow-1 overflow-auto d-block d-md-none" *ngIf="true">
      
     <div>
-      <!-- <mat-card>
+      <mat-card>
         <div class="pb-2 color1 text-white pl-2 pt-2">Job : {{details?.Job}}</div>
         <div class="pb-2 color pl-2 pt-2">BL/Booking : {{details?.BL_Booking}}</div>
         <div class="pb-2 color1 text-white pl-2 pt-2">Orgin : {{details?.origin}}</div>
@@ -31,9 +27,8 @@
         <div class="pb-2 color1 text-white pl-2 pt-2">Volume : {{details?.volume}}</div>
         <div class="pb-2 color pl-2 pt-2">Truck No : {{details?.Truck_No}}</div>
         <div class="pb-2 color1 text-white pl-2 pt-2">Driver Name : {{details?.Driver_Name}}</div>
-     </mat-card> -->
+     </mat-card>
       
     </div>
-  </div>
-</div>
-</div>
+  </div> -->
+

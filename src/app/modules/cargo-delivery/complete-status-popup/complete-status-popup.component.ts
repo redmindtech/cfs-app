@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-complete-status-popup',
@@ -6,20 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./complete-status-popup.component.scss']
 })
 export class CompleteStatusPopupComponent implements OnInit {
+  
 
-  constructor() { }
+  constructor(@Inject(MAT_DIALOG_DATA) public deliveryCompleteMessage: any) { }
 
   ngOnInit(): void {
+    console.log(this.deliveryCompleteMessage);
+
   }
 
-  deliveryTallySheet():void {
-    
-  }
-
-  deliveryNote():void {
-    
-  }
-   
+  
   close(): void {
     window.location.reload();
 

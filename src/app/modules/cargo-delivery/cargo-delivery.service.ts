@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class CargoDeliveryService {
+  [x: string]: any;
 
   constructor(
     private http: HttpClient
@@ -167,6 +168,7 @@ addDeliveryQty(Deliveryitem:any,quantity:any,draft_no:any){
     }) );
 
   }
+ 
 
 //4-complete delivery
 DeliveryItemComplete(cfs_draft_no:any){
@@ -177,14 +179,16 @@ DeliveryItemComplete(cfs_draft_no:any){
     })
   };
   const params=new URLSearchParams();
-
+ 
   let url = `${environment.apiUrl}/cargo_delivery?user_token=${user_token}&saas_id=LIVEFSL&cfs_delivery_no=${cfs_draft_no}`;
+  
   return this.http.post<any>(url, params.toString(),httpOptions)
   .pipe( map(res => {
       try {
           return res;
 
       } catch (e) {
+          
           return res;
       }  
   }) );
