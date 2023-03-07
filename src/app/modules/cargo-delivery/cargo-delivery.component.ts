@@ -91,6 +91,7 @@ export class CargoDeliveryComponent implements OnInit {
   };
   
   searchBooking(): void {
+    this.bookingList=null;
     this.cargoDeliveryService.getCargoDeliveryList(this.search).subscribe( (data:any) => {
       this.bookingList = data;
       console.log(data);
