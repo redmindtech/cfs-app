@@ -89,19 +89,20 @@ export class CargoDeliveryComponent implements OnInit {
     //   }
     // }, err => this.isSearchLoading = false)
   };
-
+  
   searchBooking(): void {
     this.cargoDeliveryService.getCargoDeliveryList(this.search).subscribe( (data:any) => {
       this.bookingList = data;
       console.log(data);
+     
       
-       if(this.bookingList.Delivery_BL[0].status == 'FAILED'){
-        const dialogRef = this.dialog.open(DeliveryFailStatusComponent, {
-          // height: '400px',
-        width: '400px',
-          data: {}
-        });
-      }
+      //  if(this.bookingList?.Delivery_BL[0]?.status == 'FAILED'){
+      //   const dialogRef = this.dialog.open(DeliveryFailStatusComponent, {
+      //     // height: '400px',
+      //   width: '400px',
+      //     data: {}
+      //   });
+      // }
     });
     
   }

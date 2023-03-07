@@ -3,6 +3,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LoadingApiService } from '../../loading/service/loading-api.service';
 import { CargoDeliveryService } from '../cargo-delivery.service';
 import { CompleteStatusPopupComponent } from '../complete-status-popup/complete-status-popup.component';
+import { DeliveryFailStatusComponent } from '../delivery-fail-status/delivery-fail-status.component';
 import { SaveFailStatusComponent } from '../save-fail-status/save-fail-status.component';
 import { StatusPopupComponent } from '../status-popup/status-popup.component';
 import { UploadPhotoPopupComponent } from '../upload-photo-popup/upload-photo-popup.component';
@@ -179,6 +180,15 @@ export class DeliveryDetailsPopupComponent implements OnInit {
     this.cargoDeliveryService.addDeliveryQty(this.details,this.DeliveredPiece,this.draft_no).subscribe( (data)=> {
               //console.log(data);
               this.Resetquantity();
+             if(data.statusmessage=='Failure'){
+                console.log('fail')
+                const dialogRef = this.dialog.open(DeliveryFailStatusComponent, {
+                  height: '90px',
+                  width: '400px',
+                  data:'Failed! Please contact administrator',
+                  //disableClose: false
+                });
+              }
      })
       
   }
@@ -188,7 +198,7 @@ export class DeliveryDetailsPopupComponent implements OnInit {
     this.cargoDeliveryService.DeliveryItemComplete(this.draft_no).subscribe( (data:any)=> {
       console.log(data);
       this.deliveryMessage=data;
-      if(data){
+      if(data.statusmessage=='Success'){
       const dialogRef = this.dialog.open(CompleteStatusPopupComponent, {
         height: '300px',
         width: '500px',
@@ -197,6 +207,15 @@ export class DeliveryDetailsPopupComponent implements OnInit {
       });
       dialogRef.disableClose = true;
            }
+      else{
+        console.log('fail')
+        const dialogRef = this.dialog.open(DeliveryFailStatusComponent, {
+          height: '90px',
+          width: '400px',
+          data:'Failed! Please contact administrator',
+          //disableClose: false
+        });
+      }
     
   })
      

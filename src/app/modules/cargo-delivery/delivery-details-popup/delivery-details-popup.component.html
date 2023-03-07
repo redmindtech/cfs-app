@@ -82,7 +82,7 @@
                     Upload Photos
                   </button>
                 <button mat-raised-button color="primary" class="ml-5" [disabled]="DeliveredPiece>(totalpackage-x) || x==0" (click)="deliveryComplete();">Complete</button>
-                <button mat-raised-button color="primary" class="ml-5" (click)="save()" [disabled]="(DeliveredPiece>(totalpackage-x)) || (totalpackage==x) || DeliveredPiece<0"> Save </button>
+                <button mat-raised-button color="primary" class="ml-5" (click)="save()" [disabled]="(DeliveredPiece>(totalpackage-x)) || (totalpackage==x) || !(DeliveredPiece>0)"> Save </button>
          </div>
 </div>
 

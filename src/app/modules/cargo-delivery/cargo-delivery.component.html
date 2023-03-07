@@ -15,10 +15,11 @@
                             matInput 
                             #searchInput
                             [formControl]="myControl" 
-                            placeholder="HBL/Booking/Bill Of Entry">
+                            placeholder="HBL/Booking/Bill Of Entry"
+                           >
                           
                     </mat-form-field>
-                    <button mat-icon-button    (click)="searchBooking()">
+                    <button mat-icon-button   [disabled]="bookingList"  (click)="searchBooking()">
                         <mat-icon>search</mat-icon>
                     </button>
                     
@@ -53,10 +54,11 @@
                         matInput 
                         #searchInput
                         [formControl]="myControl" 
-                        placeholder="HBL/Booking/Bill Of Entry">
+                        placeholder="HBL/Booking/Bill Of Entry"
+                        >
                                       
                      </mat-form-field>
-                     <button *ngIf="!showMobileBookingSearch" mat-raised-button color="primary" (click)="searchBooking()"><mat-icon>search</mat-icon> Search &nbsp;&nbsp;</button>
+                     <button *ngIf="!showMobileBookingSearch" mat-raised-button color="primary"  (click)="searchBooking()"><mat-icon>search</mat-icon> Search &nbsp;&nbsp;</button>
 
                     <button *ngIf="!showMobileBookingSearch" mat-raised-button color="primary" (click)="openBookingNumberScannerPopup(bookingSearchFC, 'BookingNumber-mobile')" class="ml-2" ><mat-icon>qr_code_scanner</mat-icon> Scan &nbsp;&nbsp;</button>
                     </div>
