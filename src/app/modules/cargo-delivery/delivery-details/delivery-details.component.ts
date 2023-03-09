@@ -125,8 +125,8 @@ export class DeliveryDetailsComponent implements OnInit {
       this.draft_no=data.draft_cfs_no   
          if(this.draft_no != ''){
       const dialogRef = this.dialog.open(DeliveryDetailsPopupComponent, {
-        height: '400px',
-      width: '500px',
+        height: 'auto',
+      width: 'auto',
       disableClose: false,
         data: { bookingList: this.bookingList, draft_no:  this.draft_no},
       });
